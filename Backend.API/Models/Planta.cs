@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Backend.API;
 
@@ -10,5 +11,6 @@ public class Planta
     public string Nome { get; set; }
 
     // Relantionship
+    [JsonIgnore]
     public virtual ICollection<Caminhao> Caminhoes { get; set; }
 }
