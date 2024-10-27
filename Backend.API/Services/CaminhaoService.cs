@@ -44,14 +44,19 @@ public class CaminhaoService : ICaminhaoService
     public async Task PutAsync(int id, Caminhao novoCaminhao)
     {
         if (id != novoCaminhao.Id)
-            throw new Exception($"Id {id} - {novoCaminhao.Id} divergentes");
+            throw new ArgumentException("Ids nao correspondem");
 
-        var caminhao = await _dbContext.Caminhoes.FindAsync(id);
+        var caminhaoExistente = await _dbContext.Caminhoes.FindAsync(id);
 
-        if (caminhao == null)
-            throw new Exception($"Caminhao com o Id {id} não encontrado");
+        if (caminhaoExistente == null)
+            throw new KeyNotFoundException("Caminhao nao encontrado");
 
-        _dbContext.Entry(caminhao).State = EntityState.Modified;
+        caminhaoExistente.AnoFabricacao = novoCaminhao.AnoFabricacao;
+        caminhaoExistente.CodigoChassi = novoCaminhao.CodigoChassi;
+        caminhaoExistente.Cor = novoCaminhao.Cor;
+        caminhaoExistente.ModeloId = novoCaminhao.ModeloId;
+        caminhaoExistente.PlantaId = novoCaminhao.PlantaId;
+
         await _dbContext.SaveChangesAsync();
     }
 
