@@ -11,6 +11,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<CaminhaoDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddScoped<ICaminhaoService, CaminhaoService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
