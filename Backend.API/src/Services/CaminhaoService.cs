@@ -31,7 +31,7 @@ public class CaminhaoService : ICaminhaoService
             .FirstOrDefaultAsync(c => c.Id == id);
 
         if (caminhao == null)
-            throw new Exception($"Caminhao com o Id {id} nao encontrado");
+            throw new KeyNotFoundException($"Caminhao com o Id {id} nao encontrado");
 
         return caminhao;
     }
