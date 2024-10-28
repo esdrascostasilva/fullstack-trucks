@@ -32,7 +32,7 @@ public class CaminhaoController : ControllerBase
 
             return Ok(caminhao);
         }
-        catch (Exception ex)
+        catch (KeyNotFoundException ex)
         {
             return NotFound(ex.Message);
         }
@@ -55,7 +55,11 @@ public class CaminhaoController : ControllerBase
 
             return NoContent();
         }
-        catch (Exception ex)
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
+        catch (ArgumentException ex)
         {
             return BadRequest(ex.Message);
         }
@@ -69,7 +73,7 @@ public class CaminhaoController : ControllerBase
             await _caminhaoService.DeleteAsync(id);
             return NoContent();
         }
-        catch (Exception ex)
+        catch (KeyNotFoundException ex)
         {
             return NotFound(ex.Message);
         }

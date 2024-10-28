@@ -68,7 +68,7 @@ public class CaminhaoService : ICaminhaoService
         var caminhao = await _dbContext.Caminhoes.FindAsync(id);
 
         if (caminhao == null)
-            throw new Exception($"Caminhao com o Id {id} não encontrado");
+            throw new KeyNotFoundException($"Caminhao com o Id {id} não encontrado");
 
         _dbContext.Caminhoes.Remove(caminhao);
         await _dbContext.SaveChangesAsync();
