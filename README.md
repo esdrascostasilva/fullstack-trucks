@@ -55,6 +55,6 @@
 
 ## Informações
 
-- Backend sendo executado em: ttp://localhost:5262 (a porta pode mudar na sua maquina)
+- Backend sendo executado em: http://localhost:5262 (a porta pode mudar na sua maquina)
 - Front end sendo executado em: http://localhost:3000
 - O projeto trata-se de um CRUD onde conseguimos cadastrar, editar e excluir caminhões diretamente na nossa API ou utilizando a pagina web
