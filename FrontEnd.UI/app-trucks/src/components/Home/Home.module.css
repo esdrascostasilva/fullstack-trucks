@@ -96,3 +96,30 @@
     border-radius: 4px;
     cursor: pointer;
 }
+
+.newButton {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.newButton:hover {
+    background-color: #45a049;
+}
+
+.formGroup select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.formGroup select:focus {
+    outline: none;
+    border-color: #2196F3;
+}
