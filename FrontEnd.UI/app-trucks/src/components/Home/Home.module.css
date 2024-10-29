@@ -1,0 +1,42 @@
+/* Home.module.css */
+.container {
+    padding: 20px;
+}
+
+.title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.table {
+    width: 100%;
+    background-color: white;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.tableHeader {
+    background-color: #f3f4f6;
+}
+
+.tableHeader th {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.tableRow td {
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+.tableRow:hover {
+    background-color: #f9fafb;
+}
+
+.emptyMessage {
+    text-align: center;
+    margin-top: 20px;
+    color: #666;
+}
