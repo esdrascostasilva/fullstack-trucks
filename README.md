@@ -3,6 +3,8 @@
 ## Pré-requisitos
 - dotnet 7.0
 - SQL Server
+- Node.js
+- npm
 
 ## Dependências do Projeto
 
@@ -23,6 +25,9 @@
 - xunit.runner.visualstudio                   2.5.3
 
 ### FrontEnd
+- React
+- TypeScript
+- CSS Modules
 
 ## Como instalar o Projeto do Backend
 
@@ -37,3 +42,19 @@
 
 4. Execute o projeto
    dotnet run
+
+## Como instalar e executar o Projeto do Frontend
+
+1. Navegue até a pasta do frontend
+
+2. Instale as dependencias
+   npm install
+
+3. Execute o projeto
+   npm start
+
+## Informações
+
+- Backend sendo executado em: ttp://localhost:5262 (a porta pode mudar na sua maquina)
+- Front end sendo executado em: http://localhost:3000
+- O projeto trata-se de um CRUD onde conseguimos cadastrar, editar e excluir caminhões diretamente na nossa API ou utilizando a pagina web
