@@ -123,3 +123,17 @@
     outline: none;
     border-color: #2196F3;
 }
+
+.deleteButton {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.deleteButton:hover {
+    background-color: #d32f2f;
+}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import styles from './Home.module.css';
+import styles from './Home.module.css'
 
 
 interface CaminhaoData {
@@ -28,10 +28,10 @@ function Home() {
   const [caminhoes, setCaminhoes] = useState<CaminhaoData[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [editando, setEditando] = useState<CaminhaoData | null>(null);
-  const [novoRegistro, setNovoRegistro] = useState<Omit<CaminhaoData, 'id'> | null>(null);
-  const [modelos, setModelos] = useState<Modelo[]>([]);
-  const [plantas, setPlantas] = useState<Planta[]>([]);
+  const [editando, setEditando] = useState<CaminhaoData | null>(null)
+  const [novoRegistro, setNovoRegistro] = useState<Omit<CaminhaoData, 'id'> | null>(null)
+  const [modelos, setModelos] = useState<Modelo[]>([])
+  const [plantas, setPlantas] = useState<Planta[]>([])
 
   const URL_BASE = 'http://localhost:5262'
   const URL_PATH = '/api/caminhao'
@@ -44,7 +44,7 @@ function Home() {
 
   const getCaminhoes = async () => {
     try {
-      setLoading(true);
+      setLoading(true)
       const response = await fetch(`${URL_BASE}${URL_PATH}`)
       const dataApi = await response.json()
 
@@ -119,43 +119,67 @@ function Home() {
   }
 
   const handleNovoRegistroChange = (campo: keyof Omit<CaminhaoData, 'id'>, valor: any) => {
-    if (!novoRegistro) return;
+    if (!novoRegistro) return
 
     setNovoRegistro({
       ...novoRegistro,
       [campo]: valor
-    });
-  };
+    })
+  }
+
+  const handleDelete = async (id: number) => {
+    if (!window.confirm('Excluir Caminhao'))
+      return
+
+    try {
+      const response = await fetch(`${URL_BASE}${URL_PATH}/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+
+      if (!response.ok)
+        throw new Error('Erro ao excluir o caminhão')
+
+      await getCaminhoes()
+
+    } catch (error) {
+      console.error('Erro ao excluir:', error)
+      alert('Ocorreu um erro ao excluir o caminhão')
+    }
+  }
 
   const getModelos = async () => {
     try {
-      const response = await fetch(`${URL_BASE}/api/modelo`);
-      const data = await response.json();
-      setModelos(data);
+      const response = await fetch(`${URL_BASE}/api/modelo`)
+      const data = await response.json()
+      setModelos(data)
     } catch (error) {
-      console.error('Erro ao buscar modelos:', error);
+      console.error('Erro ao buscar modelos:', error)
     }
-  };
+  }
 
   const getPlantas = async () => {
     try {
-      const response = await fetch(`${URL_BASE}/api/planta`);
-      const data = await response.json();
-      setPlantas(data);
+      const response = await fetch(`${URL_BASE}/api/planta`)
+      const data = await response.json()
+      setPlantas(data)
     } catch (error) {
-      console.error('Erro ao buscar plantas:', error);
+      console.error('Erro ao buscar plantas:', error)
     }
-  };
+  }
 
-  if (loading) return <div>Carregando...</div>;
-  if (error) return <div>Erro: {error}</div>;
+  if (loading) return <div>Carregando...</div>
+  if (error) return <div>Erro: {error}</div>
 
 
   return (
     <>
-      <h1>This is my Home page</h1>
 
       <div className={styles.container}>
+        <h1 className={styles.title}>Sistema de Cadastro de Caminhões</h1>
+
         <h1 className={styles.title}>Lista de Caminhões</h1>
 
         {/* Botão para criar um novo caminhao */}
@@ -187,21 +211,21 @@ function Home() {
                 <select
                   value={editando ? editando.modeloId : (novoRegistro?.modeloId || '')}
                   onChange={(e) => {
-                    const selectedId = parseInt(e.target.value);
-                    const selectedModelo = modelos.find(m => m.id === selectedId);
+                    const selectedId = parseInt(e.target.value)
+                    const selectedModelo = modelos.find(m => m.id === selectedId)
 
                     if (editando) {
                       setEditando({
                         ...editando,
                         modeloId: selectedId,
                         modelo: selectedModelo!
-                      });
+                      })
                     } else if (novoRegistro && selectedModelo) {
                       setNovoRegistro({
                         ...novoRegistro,
                         modeloId: selectedId,
                         modelo: selectedModelo
-                      });
+                      })
                     }
                   }}
                 >
@@ -227,13 +251,13 @@ function Home() {
                         ...editando,
                         plantaId: selectedId,
                         planta: selectedPlanta!
-                      });
+                      })
                     } else if (novoRegistro && selectedPlanta) {
                       setNovoRegistro({
                         ...novoRegistro,
                         plantaId: selectedId,
                         planta: selectedPlanta
-                      });
+                      })
                     }
                   }}
                 >
@@ -283,7 +307,7 @@ function Home() {
                   value={editando ? editando.anoFabricacao : (novoRegistro?.anoFabricacao || '')}
                   onChange={(e) => {
                     if (editando) {
-                      setEditando({ ...editando, anoFabricacao: Number(e.target.value) });
+                      setEditando({ ...editando, anoFabricacao: Number(e.target.value) })
                     } else {
                       handleNovoRegistroChange('anoFabricacao', Number(e.target.value))
                     }
@@ -298,8 +322,8 @@ function Home() {
                 <button
                   type="button"
                   onClick={() => {
-                    setEditando(null);
-                    setNovoRegistro(null);
+                    setEditando(null)
+                    setNovoRegistro(null)
                   }}
                 >
                   Cancelar
@@ -336,6 +360,12 @@ function Home() {
                   >
                     Editar
                   </button>
+                  <button
+                    onClick={() => handleDelete(caminhao.id)}
+                    className={styles.deleteButton}
+                  >
+                    Deletar
+                  </button>
                 </td>
               </tr>
             ))}
@@ -354,15 +384,15 @@ function Home() {
         )}
       </div>
     </>
-  );
+  )
 }
 
-export default Home;
+export default Home
 
 function setLoading(arg0: boolean) {
-  throw new Error('Function not implemented.');
+  throw new Error('Function not implemented.')
 }
 function setError(arg0: string) {
-  throw new Error('Function not implemented.');
+  throw new Error('Function not implemented.')
 }
 
